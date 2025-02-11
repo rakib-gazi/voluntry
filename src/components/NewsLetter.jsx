@@ -37,7 +37,7 @@ const NewsLetter = () => {
                   type="email"
                   name="email"
                   placeholder="Enter your  email"
-                  className="input input-bordered"
+                  className="input input-bordered bg-white"
                   required
                 />
               </div>

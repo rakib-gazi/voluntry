@@ -57,7 +57,7 @@ const AllPosts = () => {
         </div>
 
         <div className="divider divider-neutral"></div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 xl:gap-12 px-2 mb-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6  xl:gap-6 2xl:gap-3 px-2 mb-20">
           {posts.map((post) => (
             <div
               className={`card card-compact  shadow-xl ${
@@ -70,7 +70,6 @@ const AllPosts = () => {
               </figure>
               <div className={`card-body `}>
                 <h2 className="card-title text-btm-footer">{post.title}</h2>
-                <div className="divider divider-neutral my-0"></div>
                 <p className="text-lg text-logo font-bold">
                   Category:{" "}
                   <span className="text-black font-normal text-base">

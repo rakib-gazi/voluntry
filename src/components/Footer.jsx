@@ -84,7 +84,7 @@ const Footer = () => {
       </div>
       <div className="flex justify-center items-center bg-btm-footer py-8">
         <p className="text-white text-center font-semibold text-xs md:text-base">
-          @Copyright 2024, Voluntry. All rights reserved.
+          @Copyright 2025, Voluntry. All rights reserved.
         </p>
       </div>
     </footer>
