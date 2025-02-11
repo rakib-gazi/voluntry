@@ -11,6 +11,8 @@ import AllPosts from "../pages/AllPosts";
 import PostDetails from "../pages/PostDetails";
 import BeVolunteer from "../pages/BeVolunteer";
 import ErrorPage from "../pages/ErrorPage";
+import Activities from "../components/Activities";
+import CityActivities from "../pages/CityActivities";
 
 
 const router = createBrowserRouter([
@@ -39,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: "/addVolunteer",
         element: <PrivateRoute><AddVolunteer></AddVolunteer></PrivateRoute>,
+      },
+      {
+        path: "/city-wise-activities",
+        element: <CityActivities></CityActivities>,
       },
       {
         path: "/manage-my-post",

@@ -6,7 +6,7 @@ import { AuthContext } from "./AuthProvider";
 const Navbar = () => {
   const { user, setUser, LogOutUser, theme, toggleTheme, darkTheme } =
     useContext(AuthContext);
-    
+
   const navigate = useNavigate();
   const handleLogOut = () => {
     LogOutUser()
@@ -58,6 +58,32 @@ const Navbar = () => {
     >
       All volunteer Need posts
     </NavLink>,
+    <NavLink
+      to="/city-wise-activities"
+      className={({ isActive }) =>
+        isActive
+          ? `bg-active font-bold hover:bg-active px-6 lg:px-2 xl:px-6 py-2 lg:py-1 xl:py-2 rounded ${
+              darkTheme ? "text-black" : ""
+            }`
+          : "bg-none text-white font-medium px-6 lg:px-2 xl:px-6 py-2 lg:py-1 xl:py-2 rounded"
+      }
+    >
+      City Wise Activities
+    </NavLink>,
+    user && (
+      <NavLink
+        to={`/manage-my-post`}
+        className={({ isActive }) =>
+          isActive
+            ? `bg-active font-bold hover:bg-active px-6 lg:px-2 xl:px-6 py-2 lg:py-1 xl:py-2 rounded ${
+                darkTheme ? "text-black" : ""
+              }`
+            : "bg-none text-white font-medium px-6 lg:px-2 xl:px-6 py-2 lg:py-1 xl:py-2 rounded"
+        }
+      >
+        My Posts
+      </NavLink>
+    ),
     user && (
       <div className="dropdown">
         <div
@@ -71,8 +97,7 @@ const Navbar = () => {
           tabIndex={0}
           className="dropdown-content menu bg-footer rounded-box z-50 w-72 p-2 shadow mt-32 lg:mt-2"
         >
-          
-            {user && (
+          {user && (
             <NavLink
               to={`/addVolunteer`}
               className={({ isActive }) =>
@@ -85,8 +110,8 @@ const Navbar = () => {
             >
               Add volunteer need post
             </NavLink>
-            )}
-            {user && (
+          )}
+          {user && (
             <NavLink
               to={`/manage-my-post`}
               className={({ isActive }) =>
@@ -99,7 +124,7 @@ const Navbar = () => {
             >
               Manage My Posts
             </NavLink>
-            )}
+          )}
         </ul>
       </div>
     ),
@@ -209,7 +234,13 @@ const Navbar = () => {
                     tabIndex={0}
                     className="dropdown-content menu bg-footer rounded-box z-50 w-60 p-4 shadow flex flex-col gap-3"
                   >
-                    <p className={`${darkTheme ? 'font-bold text-black' : 'font-bold'}`}>Name: {user.displayName}</p>
+                    <p
+                      className={`${
+                        darkTheme ? "font-bold text-black" : "font-bold"
+                      }`}
+                    >
+                      Name: {user.displayName}
+                    </p>
                     <div>
                       <button
                         onClick={handleLogOut}

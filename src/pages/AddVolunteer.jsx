@@ -105,7 +105,7 @@ const AddVolunteer = () => {
       e.target.reset();
   };
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto pt-16">
       <div className="shadow-2xl rounded-b-2xl">
         <div className="bg-footer">
           <h1 className="text-base lg:text-4xl font-extrabold font-white py-24 text-center text-btm-footer">

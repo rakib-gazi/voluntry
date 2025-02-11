@@ -99,7 +99,7 @@ const ManageMyPosts = () => {
     });
   };
   return (
-    <div className="container mx-auto mb-16 px-4">
+    <div className="container mx-auto mb-16 px-4 pt-24">
       <div className="">
         <div className="grid grid-cols-2 justify-between items-end mt-12 px-4">
           <h1 className={`${darkTheme ? 'text-white' : 'text-btm-footer '} font-bold text-base lg:text-3xl`}>

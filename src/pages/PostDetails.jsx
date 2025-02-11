@@ -7,7 +7,7 @@ const PostDetails = () => {
   const { darkTheme } = useContext(AuthContext);
 
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto pt-16">
       <div className="px-2 mb-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 bg-gray-100 rounded-b-3xl px-6 pb-6 pt-12 mb-6">
           <div className="">

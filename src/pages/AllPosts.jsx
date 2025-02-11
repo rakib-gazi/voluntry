@@ -27,7 +27,7 @@ const AllPosts = () => {
     }
   }, [search]);
   return (
-    <div className="container mx-auto px-4">
+    <div className="container mx-auto px-4 pt-24">
       <div className="mt-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 justify-between">
           <h1 className={`${darkTheme ? 'text-white' : 'text-btm-footer '} font-bold text-2xl lg:text-3xl`}>
