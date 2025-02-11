@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import { Link, useLoaderData } from "react-router-dom";
 import { AuthContext } from "./AuthProvider";
-import { Typewriter } from "react-simple-typewriter";
 import { FaLongArrowAltRight } from "react-icons/fa";
 
 const VolunteerPostHome = () => {
@@ -14,7 +13,7 @@ const VolunteerPostHome = () => {
         Volunteer Needs Now
       </h1>
       <div className="divider divider-neutral"></div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 xl:gap-12 px-2">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6  xl:gap-6 2xl:gap-3 px-2">
         {data.map((post) => (
           <div
             className={`card card-compact  shadow-xl ${
@@ -27,7 +26,6 @@ const VolunteerPostHome = () => {
             </figure>
             <div className={`card-body `}>
               <h2 className="card-title text-btm-footer">{post.title}</h2>
-              <div className="divider divider-neutral my-0"></div>
               <p className="text-lg text-logo font-bold">
                 Category:{" "}
                 <span className="text-black font-normal text-base">
@@ -58,7 +56,7 @@ const VolunteerPostHome = () => {
           to={"/all-volunteer-need-posts"}
           className="flex justify-center items-center gap-2 btn bg-btm-footer hover:bg-active text-white hover:text-black font-bold text-medium shadow-2xl"
         >
-          <button>View Details</button>
+          <button>View All</button>
           <FaLongArrowAltRight className="text-2xl" />
         </Link>
       </div>
