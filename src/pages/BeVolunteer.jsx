@@ -10,6 +10,7 @@ const BeVolunteer = () => {
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
   const handleVolunteerUpdate = (e) => {
     e.preventDefault();
     const form = new FormData(e.target);
@@ -105,10 +106,12 @@ const BeVolunteer = () => {
       status,
       description,
     };
+    setLoading(true);
     axios
       .post(`https://ph-assignment-11-server-pink.vercel.app/volunteer-request`, volunteerRequest)
       .then((res) => {
         if (res.data?.insertedId ) {
+          setLoading(false);
           Swal.fire({
             position: "center",
             icon: "success",
@@ -377,7 +380,7 @@ const BeVolunteer = () => {
                 type="submit"
                 className="btn bg-active text-black font-bold hover:bg-active"
               >
-                Request
+                {loading ? <span className="loading loading-spinner loading-lg text-primary"></span> : "Request"}
               </button>
             </div>
           </form>

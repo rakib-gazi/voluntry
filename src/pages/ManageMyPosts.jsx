@@ -13,20 +13,25 @@ const ManageMyPosts = () => {
   const { user, darkTheme } = useContext(AuthContext);
   const [posts, setPosts] = useState([]);
   const [requestPosts, setRequestPosts] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [layout, setLayout] = useState("three-column-layout");
   const [layoutRequest, setLayoutRequest] = useState(
     "request-three-column-layout"
   );
   const axiosSecure = useAxios();
   useEffect(() => {
+    setLoading(true);
     axiosSecure
       .get(`/volunteerPost?email=${user.email}`)
       .then((res) => setPosts(res.data));
+    setLoading(false);
   }, [user.email]);
   useEffect(() => {
+    setLoading(true);
     axiosSecure
       .get(`/volunteer-request-post?email=${user.email}`)
       .then((res) => setRequestPosts(res.data));
+    setLoading(false);
   }, [user.email]);
   const handleThreeColumnLayout = () => {
     setLayout("three-column-layout");
@@ -53,10 +58,14 @@ const ManageMyPosts = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
+        setLoading(true);
         axios
-          .delete(`https://ph-assignment-11-server-pink.vercel.app/volunteerPost/${id}`)
+          .delete(
+            `https://ph-assignment-11-server-pink.vercel.app/volunteerPost/${id}`
+          )
           .then((res) => {
             if (res.data.deletedCount > 0) {
+              setLoading(false);
               Swal.fire({
                 title: "Deleted!",
                 text: "Your file has been deleted.",
@@ -80,10 +89,14 @@ const ManageMyPosts = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
+        setLoading(true);
         axios
-          .delete(`https://ph-assignment-11-server-pink.vercel.app/volunteer-request-post/${id}`)
+          .delete(
+            `https://ph-assignment-11-server-pink.vercel.app/volunteer-request-post/${id}`
+          )
           .then((res) => {
             if (res.data.deletedCount > 0) {
+              setLoading(false);
               Swal.fire({
                 title: "Deleted!",
                 text: "Your file has been deleted.",
@@ -102,25 +115,49 @@ const ManageMyPosts = () => {
     <div className="container mx-auto mb-16 px-4 pt-24">
       <div className="">
         <div className="grid grid-cols-2 justify-between items-end mt-12 px-4">
-          <h1 className={`${darkTheme ? 'text-white' : 'text-btm-footer '} font-bold text-base lg:text-3xl`}>
+          <h1
+            className={`${
+              darkTheme ? "text-white" : "text-btm-footer "
+            } font-bold text-base lg:text-3xl`}
+          >
             My volunteer Need posts
           </h1>
           <div className="flex justify-end items-center gap-4">
             <BsGrid3X3Gap
               onClick={handleThreeColumnLayout}
-              className={`${ darkTheme ? 'text-3xl text-white cursor-pointer' : 'text-3xl text-btm-footer cursor-pointer'}`}
+              className={`${
+                darkTheme
+                  ? "text-3xl text-white cursor-pointer"
+                  : "text-3xl text-btm-footer cursor-pointer"
+              }`}
             />
             <HiMiniBars4
               onClick={handleFormLayout}
-              className={`${ darkTheme ? 'text-3xl text-white cursor-pointer' : 'text-3xl text-btm-footer cursor-pointer'}`}
+              className={`${
+                darkTheme
+                  ? "text-3xl text-white cursor-pointer"
+                  : "text-3xl text-btm-footer cursor-pointer"
+              }`}
             />
           </div>
         </div>
-        <div className={`${darkTheme? '  divider-secondary' : ' divider-neutral'} divider`}></div>
+        <div
+          className={`${
+            darkTheme ? "  divider-secondary" : " divider-neutral"
+          } divider`}
+        ></div>
         {layout === "three-column-layout" ? (
-          posts.length === 0 ? (
+          loading ? (
+            <div className="flex justify-center py-10">
+              <span className="loading loading-spinner loading-lg text-primary"></span>
+            </div>
+          ) : posts.length === 0 ? (
             <div className="flex justify-center items-center py-12 px-4 rounded-3xl shadow-xl">
-              <h1 className={`${darkTheme ? 'text-white ' : 'text-btm-footer '}font-bold text-3xl`}>
+              <h1
+                className={`${
+                  darkTheme ? "text-white " : "text-btm-footer "
+                }font-bold text-3xl`}
+              >
                 No data Available
               </h1>
             </div>
@@ -129,7 +166,9 @@ const ManageMyPosts = () => {
               {posts.map((post) => (
                 <div
                   key={post._id}
-                  className={`card card-side  shadow-xl ${darkTheme ? 'bg-active' : 'bg-base-100'}`}
+                  className={`card card-side  shadow-xl ${
+                    darkTheme ? "bg-active" : "bg-base-100"
+                  }`}
                 >
                   <figure>
                     <img
@@ -138,7 +177,13 @@ const ManageMyPosts = () => {
                       className="h-full w-48 object-cover"
                     />
                   </figure>
-                  <div className={`${darkTheme ? 'text-black card-body px-4 py-3' : 'card-body px-4 py-3'}`}>
+                  <div
+                    className={`${
+                      darkTheme
+                        ? "text-black card-body px-4 py-3"
+                        : "card-body px-4 py-3"
+                    }`}
+                  >
                     <h2 className="card-title text-base">{post.title}</h2>
                     <p className="flex gap-2 items-center text-sm">
                       <IoLocationSharp /> {post.location}
@@ -176,7 +221,13 @@ const ManageMyPosts = () => {
           <div className="overflow-x-auto my-6 ">
             <table className="table table-xs">
               <thead>
-                <tr className={`${darkTheme ? 'text-white font-bold text-base' : 'text-black font-bold text-base'}`}>
+                <tr
+                  className={`${
+                    darkTheme
+                      ? "text-white font-bold text-base"
+                      : "text-black font-bold text-base"
+                  }`}
+                >
                   <th>SL</th>
                   <th>Title</th>
                   <th>Location</th>
@@ -188,13 +239,23 @@ const ManageMyPosts = () => {
               <tbody>
                 {posts.length === 0 ? (
                   <tr>
-                    <td colSpan="6" className={`${darkTheme ? 'text-white text-center text-xl' : 'text-center text-xl'}`}>
+                    <td
+                      colSpan="6"
+                      className={`${
+                        darkTheme
+                          ? "text-white text-center text-xl"
+                          : "text-center text-xl"
+                      }`}
+                    >
                       No data Available
                     </td>
                   </tr>
                 ) : (
                   posts.map((post, index) => (
-                    <tr key={post._id} className={`${darkTheme ? 'text-white' : ''}`}>
+                    <tr
+                      key={post._id}
+                      className={`${darkTheme ? "text-white" : ""}`}
+                    >
                       <th>{index + 1}</th>
                       <td>{post.title}</td>
                       <td>{post.location}</td>
@@ -203,7 +264,13 @@ const ManageMyPosts = () => {
                       <td>
                         <div className="flex  items-center gap-1">
                           <Link to={`/update-my-post/${post._id}`}>
-                            <FiEdit className={`${darkTheme ? 'text-white text-xl font-bold' : 'text-logo text-xl font-bold'}`} />
+                            <FiEdit
+                              className={`${
+                                darkTheme
+                                  ? "text-white text-xl font-bold"
+                                  : "text-logo text-xl font-bold"
+                              }`}
+                            />
                           </Link>
                           <button onClick={() => handleDelete(post._id)}>
                             <MdDelete className="text-red-600 text-2xl font-bold" />
@@ -220,25 +287,45 @@ const ManageMyPosts = () => {
       </div>
       <div>
         <div className="grid grid-cols-2 justify-between items-end mt-12 px-4">
-          <h1 className={`${darkTheme ? 'text-white' : 'text-btm-footer '} font-bold text-base lg:text-3xl`}>
+          <h1
+            className={`${
+              darkTheme ? "text-white" : "text-btm-footer "
+            } font-bold text-base lg:text-3xl`}
+          >
             My Volunteer Request Post
           </h1>
           <div className="flex justify-end items-center gap-4">
             <BsGrid3X3Gap
               onClick={handleRequestThreeColumnLayout}
-              className={`${ darkTheme ? 'text-3xl text-white cursor-pointer' : 'text-3xl text-btm-footer cursor-pointer'}`}
+              className={`${
+                darkTheme
+                  ? "text-3xl text-white cursor-pointer"
+                  : "text-3xl text-btm-footer cursor-pointer"
+              }`}
             />
             <HiMiniBars4
               onClick={handleRequestFormLayout}
-              className={`${ darkTheme ? 'text-3xl text-white cursor-pointer' : 'text-3xl text-btm-footer cursor-pointer'}`}
+              className={`${
+                darkTheme
+                  ? "text-3xl text-white cursor-pointer"
+                  : "text-3xl text-btm-footer cursor-pointer"
+              }`}
             />
           </div>
         </div>
-        <div className={`${darkTheme? '  divider-secondary' : ' divider-neutral'} divider`}></div>
+        <div
+          className={`${
+            darkTheme ? "  divider-secondary" : " divider-neutral"
+          } divider`}
+        ></div>
         {layoutRequest === "request-three-column-layout" ? (
           requestPosts.length === 0 ? (
             <div className="flex justify-center items-center py-12 px-4 rounded-3xl shadow-xl">
-              <h1 className={`${darkTheme ? 'text-white ' : 'text-btm-footer '}font-bold text-3xl`}>
+              <h1
+                className={`${
+                  darkTheme ? "text-white " : "text-btm-footer "
+                }font-bold text-3xl`}
+              >
                 No data Available
               </h1>
             </div>
@@ -247,7 +334,9 @@ const ManageMyPosts = () => {
               {requestPosts.map((post) => (
                 <div
                   key={post._id}
-                  className={`card card-side  shadow-xl ${darkTheme ? 'bg-active' : 'bg-base-100'}`}
+                  className={`card card-side  shadow-xl ${
+                    darkTheme ? "bg-active" : "bg-base-100"
+                  }`}
                 >
                   <figure>
                     <img
@@ -256,7 +345,13 @@ const ManageMyPosts = () => {
                       className="h-full w-48 object-cover"
                     />
                   </figure>
-                  <div className={`${darkTheme ? 'text-black card-body px-4 py-3' : 'card-body px-4 py-3'}`}>
+                  <div
+                    className={`${
+                      darkTheme
+                        ? "text-black card-body px-4 py-3"
+                        : "card-body px-4 py-3"
+                    }`}
+                  >
                     <h2 className="card-title text-base">{post.title}</h2>
                     <p className="flex gap-2 items-center text-sm">
                       <IoLocationSharp /> {post.location}
@@ -289,7 +384,13 @@ const ManageMyPosts = () => {
           <div className="overflow-x-auto my-6 ">
             <table className="table table-xs">
               <thead>
-                <tr className={`${darkTheme ? 'text-white font-bold text-base' : 'text-black font-bold text-base'}`}>
+                <tr
+                  className={`${
+                    darkTheme
+                      ? "text-white font-bold text-base"
+                      : "text-black font-bold text-base"
+                  }`}
+                >
                   <th>SL</th>
                   <th>Title</th>
                   <th>Location</th>
@@ -301,13 +402,23 @@ const ManageMyPosts = () => {
               <tbody>
                 {requestPosts.length === 0 ? (
                   <tr>
-                    <td colSpan="6" className={`${darkTheme ? 'text-white text-center text-xl' : 'text-center text-xl'}`}>
+                    <td
+                      colSpan="6"
+                      className={`${
+                        darkTheme
+                          ? "text-white text-center text-xl"
+                          : "text-center text-xl"
+                      }`}
+                    >
                       No data Available
                     </td>
                   </tr>
                 ) : (
                   requestPosts.map((post, index) => (
-                    <tr key={post._id} className={`${darkTheme ? 'text-white' : ''}`}>
+                    <tr
+                      key={post._id}
+                      className={`${darkTheme ? "text-white" : ""}`}
+                    >
                       <th>{index + 1}</th>
                       <td>{post.title}</td>
                       <td>{post.location}</td>
