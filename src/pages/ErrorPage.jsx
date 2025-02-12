@@ -4,11 +4,11 @@ const ErrorPage = () => {
   const navigate = useNavigate();
 
   const handleGoBack = () => {
-    navigate(-1); 
+    navigate("/"); 
   };
   return (
     <>
-      <div className="flex flex-col justify-center items-center gap-8 mb-12">
+      <div className="flex flex-col justify-center items-center gap-8 mb-12 mt-16">
         <img
           src={error}
           alt="404 Error , Page not found"

@@ -117,7 +117,7 @@ const UpdateMyPosts = () => {
     <div className="container mx-auto">
       <div className="shadow-2xl rounded-b-2xl">
         <div className="bg-footer">
-          <h1 className="text-4xl font-extrabold font-white py-24 text-center text-btm-footer">
+          <h1 className="text-4xl font-extrabold font-white py-24 mt-12 text-center text-btm-footer">
             Update volunteer need post
           </h1>
         </div>

@@ -114,7 +114,7 @@ const Register = () => {
       });
   };
   return (
-    <div className="px-3">
+    <div className="px-3 mt-16">
       <h1 className={`${darkTheme ? 'text-center text-white font-bold text-2xl pt-12' : 'text-center text-logo font-bold text-2xl pt-12'}`}>
         Signup Here
         

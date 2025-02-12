@@ -133,7 +133,7 @@ const BeVolunteer = () => {
   };
   return (
     <div className="container mx-auto">
-      <div className="shadow-2xl rounded-b-2xl">
+      <div className="shadow-2xl rounded-b-2xl mt-16">
         <div className="">
           <img src={bVolunteer} alt="" className="h-60 w-full" />
         </div>

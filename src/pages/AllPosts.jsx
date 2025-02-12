@@ -8,32 +8,39 @@ const AllPosts = () => {
   const { darkTheme } = useContext(AuthContext);
   const [posts, setPosts] = useState([]);
   const [search, setSearch] = useState("");
-
+  const [sortOrder, setSortOrder] = useState("Recent");
   useEffect(() => {
     const fetchFilteredPosts = async () => {
-      await axios
-        .post("https://ph-assignment-11-server-pink.vercel.app/volunteerPosts", {
+      try {
+        const response = await axios.post("https://ph-assignment-11-server-pink.vercel.app/volunteerPosts", {
           title: search,
-        })
-        .then((res) => setPosts(res.data));
+          sortOrder: sortOrder || null, 
+        });
+        setPosts(response.data);
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+      }
     };
-
-    if (search !== "") {
-      fetchFilteredPosts();
-    } else {
-      axios
-        .get("https://ph-assignment-11-server-pink.vercel.app/volunteerPosts")
-        .then((res) => setPosts(res.data));
-    }
-  }, [search]);
+  
+    fetchFilteredPosts();
+  }, [search, sortOrder]);
+  
   return (
     <div className="container mx-auto px-4 pt-24">
       <div className="mt-12">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 justify-between">
-          <h1 className={`${darkTheme ? 'text-white' : 'text-btm-footer '} font-bold text-2xl lg:text-3xl`}>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-center">
+          <h1
+            className={`${
+              darkTheme ? "text-white" : "text-btm-footer "
+            } font-bold text-2xl xl:text-3xl`}
+          >
             All volunteer Need posts
           </h1>
-          <label className={`${darkTheme ? 'border-white' : ' border-btm-footer'} input input-bordered flex items-center gap-2 border-2`}>
+          <label
+            className={`${
+              darkTheme ? "border-white" : " border-btm-footer"
+            } input input-bordered flex items-center gap-2 border-2`}
+          >
             <input
               type="text"
               className="grow"
@@ -54,6 +61,16 @@ const AllPosts = () => {
               />
             </svg>
           </label>
+          <select
+            className={`${
+              darkTheme ? "border-white" : "border-btm-footer"
+            } select select-bordered w-full border-2`}
+            value={sortOrder}
+            onChange={(e) => setSortOrder(e.target.value || "Recent")} 
+          >
+            <option value="Oldest">Recent Deadline</option>
+            <option value="Recent">Oldest Deadline</option>
+          </select>
         </div>
 
         <div className="divider divider-neutral"></div>
